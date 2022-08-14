@@ -1,5 +1,7 @@
 const Mdb = require('./mdb.service')
 const tabla = "mascotas"
+const razas = "razas"
+const tipomascotas = "tipomascotas"
 const Mascota = {
     todos: async function (){
         const sql = `
@@ -8,10 +10,10 @@ const Mascota = {
             ${tabla}.edad,
             ${tabla}.Pais,
             ${tabla}.Ciudad, 
-            ${razas}.nombre 
+            ${razas}.raza, 
             ${tipomascotas}.tipo 
-                      
-                  
+                         
+            
             FROM ${tabla} 
 
             JOIN  ${tipomascotas} ON  ${tipomascotas}.id = ${tabla}.IdTipo
@@ -25,8 +27,9 @@ const Mascota = {
             (nombre, IdRaza, IdTipo, edad, Pais, Ciudad)
             VALUES (?,?,?,?,?,?)
         `
-        return Mdb.query(sql, [mascota.nombre],[mascota.IdRaza],[mascota.IdTipo],[mascota.edad],[mascota.Pais],[mascota.Ciudad])
+        return Mdb.query(sql, [mascota.nombre, mascota.IdRaza, mascota.IdTipo, mascota.edad, mascota.Pais, mascota.Ciudad])
     },
+
     editar: async function (mascota){
         const sql = `
             UPDATE ${tabla} SET 
@@ -35,11 +38,11 @@ const Mascota = {
                 IdTipo = ?, 
                 edad = ?, 
                 Pais = ?, 
-                Ciudad = ?, 
+                Ciudad = ?
                 WHERE id = ?
         `
-        
-        return Mdb.query(sql, [mascota.nombre],[mascota.IdRaza],[mascota.IdTipo],[mascota.edad],[mascota.Pais],[mascota.Ciudad])
+                       
+        return Mdb.query(sql, [mascota.nombre, mascota.IdRaza, mascota.IdTipo, mascota.edad, mascota.Pais, mascota.Ciudad, mascota.id])
     },
     eliminar: async function (id){
         const sql = `
@@ -55,4 +58,5 @@ const Mascota = {
         return Mdb.query(sql, [id])
     }
 }
+
 module.exports = Mascota

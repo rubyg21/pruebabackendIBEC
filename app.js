@@ -56,6 +56,25 @@ app.get('/mascotas', async (req, res) => {
     res.send(mascotas)
 })
 
+// new Mascota
+app.post('/mascotas', async (req, res) => {
+    const mascotas  = req.body
+    const respuesta = await Mascota.nuevo(mascotas)
+    res.send(respuesta)
+})
+// obtener mascota por id
+app.get('/mascotas/:id', async (req, res) => {
+    const id  = req.params.id
+    const respuesta = await Mascota.porId(id)
+    res.send(respuesta)
+})
+
+// actualizar mascota por id
+app.put('/mascotas', async (req, res) => {
+    const mascotas  = req.body
+    const respuesta = await Mascota.editar(mascotas)
+    res.send(respuesta)
+})
 
 app.listen(port, (req, res) => {
     console.log("running ::OK ", port)

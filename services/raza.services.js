@@ -9,19 +9,19 @@ const Raza = {
     },
     nuevo: async function (raza){
         const sql = `
-            INSERT INTO ${tabla} (nombre)
+            INSERT INTO ${tabla} (raza)
             VALUES (?)
         `
-        return Mdb.query(sql, [raza.nombre])
+        return Mdb.query(sql, [raza.raza])
     },
     editar: async function (raza){
         const sql = `
             UPDATE ${tabla} SET 
-                nombre = ?, 
+            raza = ?, 
                 WHERE id = ?
         `
         
-        return Mdb.query(sql, [raza.nombre])
+        return Mdb.query(sql, [raza.raza])
     },
     eliminar: async function (id){
         const sql = `
